@@ -1,6 +1,17 @@
+import  useStudent  from "../hooks/useStudent";
+
 import StudentCard from "./StudentCard";
 
-function StudentList({ students, onDelete }) {
+function StudentList() {
+    const {
+        students,
+        removeStudent,
+        updateStudentInState    
+    } = useStudent();
+
+   if (students.length === 0) {
+        return <p>No students found.</p>;
+    }
 
     return (
         <div>
@@ -8,7 +19,8 @@ function StudentList({ students, onDelete }) {
                 <StudentCard
                     key={student.id}
                     student={student}
-                    onDelete={onDelete}
+                    onStudentUpdated={updateStudentInState}
+                    onDelete={removeStudent}
                 />
             ))}           
         </div>

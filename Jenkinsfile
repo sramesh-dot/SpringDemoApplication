@@ -4,13 +4,13 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'master',
-                    credentialsId: 'github-push-creds',
-                    url: 'https://github.com/sramesh-dot/StudentApp'
-            }
-        }
+//         stage('Checkout') {
+//             steps {
+//                 git branch: 'master',
+//                     credentialsId: 'github-push-creds',
+//                     url: 'https://github.com/sramesh-dot/StudentApp'
+//             }
+//         }
 
         stage('Backend Build') {
             steps {

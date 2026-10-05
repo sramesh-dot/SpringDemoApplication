@@ -35,8 +35,7 @@ class StudentIntegrationTest {
     void shouldCreateAndRetrieveStudent() throws Exception {
 
         String json = """
-                {
-                    "id": 1,
+                {   
                     "name": "Ramesh",
                     "age": 24
                 }

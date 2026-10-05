@@ -129,7 +129,7 @@ public class StudentControllerV1 {
     }
 
     //Pagination & Sorting Together
-    @GetMapping("/page?page=0&size=5")
+    @GetMapping("/page-sort")
     public Page<Student> getPS(
             @RequestParam int page,
             @RequestParam int size) {

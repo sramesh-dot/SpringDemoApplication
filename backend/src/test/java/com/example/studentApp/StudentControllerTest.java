@@ -6,6 +6,7 @@ import com.example.studentApp.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Import(TestCacheConfig.class)
 @WebMvcTest(StudentController.class)
 class StudentControllerTest {
 
@@ -32,7 +34,7 @@ class StudentControllerTest {
     @Test
     void shouldReturnAllStudents() throws Exception {
 
-        List<Student> student = List.of(new Student (1, "Ram", 19), new Student (2, "Esh", 26));
+        List<Student> student = List.of(new Student ("Ram", 19), new Student ("Esh", 26));
 
         when(service.getAllStudents())
                 .thenReturn(student);
@@ -45,7 +47,7 @@ class StudentControllerTest {
     @Test
     void shouldReturnStudentById() throws Exception {
 
-        Student student = new Student (1, "Ram", 19);
+        Student student = new Student ("Ram", 19);
 
         when(service.getStudentById(1))
                 .thenReturn(student);
@@ -58,7 +60,7 @@ class StudentControllerTest {
     @Test
     void shouldSaveStudent() throws Exception {
 
-        Student student = new Student (1, "Ram", 19);
+        Student student = new Student ("Ram", 19);
 
         when(service.saveStudent(any(Student.class)))
                 .thenReturn(student);
@@ -82,7 +84,7 @@ class StudentControllerTest {
     @Test
     void shouldEditStudent() throws Exception {
 
-        Student student = new Student(1, "Ram", 19);
+        Student student = new Student("Ram", 19);
 
         when(service.updateStudent(eq(1), any(Student.class)))
                 .thenReturn(student);

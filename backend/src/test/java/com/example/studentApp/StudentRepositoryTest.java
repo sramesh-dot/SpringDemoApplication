@@ -5,6 +5,7 @@ import com.example.studentApp.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
+@Import(TestCacheConfig.class)
 @ActiveProfiles("test")
 class StudentRepositoryTest {
 
@@ -21,7 +23,7 @@ class StudentRepositoryTest {
 
     @Test
     void shouldSaveStudent() {
-        Student student = new Student(1, "Pam", 25);
+        Student student = new Student("Pam", 25);
 
         Student saved = repository.save(student);
 
@@ -31,7 +33,7 @@ class StudentRepositoryTest {
 
     @Test
     void shouldFindStudentByName() {
-        Student student = new Student(1, "Ram", 25);
+        Student student = new Student("Ram", 25);
 
         Student saved = repository.save(student);
 
@@ -44,8 +46,8 @@ class StudentRepositoryTest {
     @Test
     void shouldFindStudentByAge() {
 
-        repository.save(new Student(1, "Ram", 25));
-        repository.save(new Student(2, "Raina", 22));
+        repository.save(new Student("Ram", 25));
+        repository.save(new Student("Raina", 22));
 
         List<Student> result = repository.findByAge(22);
 
@@ -57,15 +59,15 @@ class StudentRepositoryTest {
     void shouldFindStudentsOlderThan() {
 
         repository.save(
-                new Student(1, "Ramesh", 24)
+                new Student("Ramesh", 24)
         );
 
         repository.save(
-                new Student(2, "John", 22)
+                new Student( "John", 22)
         );
 
         repository.save(
-                new Student(3, "David", 30)
+                new Student("David", 30)
         );
 
         List<Student> result =
@@ -77,15 +79,15 @@ class StudentRepositoryTest {
     @Test
     void shouldFindStudentsContainingKeyword() {
         repository.save(
-                new Student(1, "Ramesh", 24)
+                new Student("Ramesh", 24)
         );
 
         repository.save(
-                new Student(2, "John", 22)
+                new Student("John", 22)
         );
 
         repository.save(
-                new Student(3, "David", 30)
+                new Student("David", 30)
         );
 
         List<Student> result =
@@ -98,15 +100,15 @@ class StudentRepositoryTest {
     @Test
     void shouldCheckIfStudentExists() {
         repository.save(
-                new Student(1, "Ramesh", 24)
+                new Student("Ramesh", 24)
         );
 
         repository.save(
-                new Student(2, "John", 22)
+                new Student("John", 22)
         );
 
         repository.save(
-                new Student(3, "David", 30)
+                new Student("David", 30)
         );
 
         boolean result =
@@ -118,15 +120,15 @@ class StudentRepositoryTest {
     @Test
     void shouldCountStudentsByAge() {
         repository.save(
-                new Student(1, "Ramesh", 24)
+                new Student("Ramesh", 24)
         );
 
         repository.save(
-                new Student(2, "John", 30)
+                new Student("John", 30)
         );
 
         repository.save(
-                new Student(3, "David", 30)
+                new Student("David", 30)
         );
 
         long result =

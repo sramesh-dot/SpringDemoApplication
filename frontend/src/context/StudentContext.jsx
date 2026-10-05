@@ -8,9 +8,9 @@ import {
 import {
     getStudents,
     getStudentById as getStudentByIdApi,
-    createStudent,
+    createStudent as createStudentApi,
     updateStudent as updateStudentApi,
-    deleteStudent
+    deleteStudent as deleteStudentApi
 } from "../services/studentService";
 
 const StudentContext = createContext();
@@ -61,32 +61,31 @@ function StudentProvider({ children }) {
 
     async function addStudent(student) {
 
-        const createdStudent = await createStudent(student);
+    const createdStudent = await createStudentApi(student);
 
-        setStudents(previousStudents => [
-            ...previousStudents,
-            createdStudent
-        ]);
+    setStudents(previousStudents => [
+        ...previousStudents,
+        createdStudent
+    ]);
 
-        return createdStudent;
-    }
+    return createdStudent;
+}
 
+   async function updateStudent(id, student) {
 
-    async function updateStudent(id, student) {
+    const updatedStudent =
+        await updateStudentApi(id, student);
 
-        const updatedStudent =
-            await updateStudentApi(id, student);
+    setStudents(previousStudents =>
+        previousStudents.map(existingStudent =>
+            existingStudent.id === updatedStudent.id
+                ? updatedStudent
+                : existingStudent
+        )
+    );
 
-        setStudents(previousStudents =>
-            previousStudents.map(student =>
-                student.id === updatedStudent.id
-                    ? updatedStudent
-                    : student
-            )
-        );
-
-        return updatedStudent;
-    }
+    return updatedStudent;
+}
 
 
     async function removeStudent(id) {

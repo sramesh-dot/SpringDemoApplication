@@ -34,7 +34,16 @@ function StudentDetailsPage() {
 
                 console.error(error);
 
-                setError("Failed to load student");
+                if (error.response?.status === 404) {
+
+                    setError("Student not found.");
+
+                } else {
+
+                    setError("Failed to load student.");
+
+                }
+
 
             } finally {
 
@@ -68,9 +77,15 @@ function StudentDetailsPage() {
             <p>ID: {student.id}</p>
             <p>Name: {student.name}</p>
             <p>Age: {student.age}</p>
+            
+            <button
+                onClick={() => navigate(`/students/${id}/edit`)}>
+                    Edit
+            </button>
 
-            <button onClick={() => navigate(-1)}>
-                Back
+            <button
+                onClick={() => navigate("/students")}>
+                    Back
             </button>
 
         </div>

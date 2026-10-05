@@ -8,6 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +18,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
+//@Import(TestCacheConfig.class)
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
 
     @Mock
     StudentRepository repository;
+
+    @Mock
+    ApplicationEventPublisher eventPublisher;
 
     @InjectMocks
     StudentService service;
@@ -30,7 +35,7 @@ class StudentServiceTest {
     void shouldReturnStudent() {
 
         Student student =
-                new Student(1, "Ramesh", 24);
+                new Student("Ramesh", 24);
 
         when(repository.findById(1))
                 .thenReturn(Optional.of(student));
@@ -49,7 +54,7 @@ class StudentServiceTest {
     void shouldSaveStudent() {
 
         Student student =
-                new Student(1, "Ramesh", 24);
+                new Student("Ramesh", 24);
 
         when(repository.save(student))
                 .thenReturn(student);
@@ -67,7 +72,7 @@ class StudentServiceTest {
     @Test
     void shouldReturnAllStudents() {
 
-        List<Student> student = List.of((new Student(1, "Ram", 45)), new Student(2, "Esh", 33));
+        List<Student> student = List.of((new Student("Ram", 45)), new Student("Esh", 33));
 
         when(repository.findAll())
                 .thenReturn(student);
@@ -83,7 +88,7 @@ class StudentServiceTest {
     void shouldReturnStudentWhenIdExists() {
 
         Student student =
-                new Student(1,"Ramesh",24);
+                new Student("Ramesh",24);
 
         when(repository.findById(1))
                 .thenReturn(Optional.of(student));
@@ -112,7 +117,7 @@ class StudentServiceTest {
     void shouldUpdateStudent() {
 
         Student student =
-                new Student(1,"Updated",25);
+                new Student("Updated",25);
 
         when(repository.save(student))
                 .thenReturn(student);

@@ -13,6 +13,9 @@ import AppLayout from "./layouts/AppLayout";
 import StudentListPage from "./pages/StudentListPage";
 import AddStudentPage from "./pages/AddStudentPage";
 import StudentDetailsPage from "./pages/StudentDetailsPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import EditStudentPage from "./pages/EditStudentPage";
+
 
 function App() {
 
@@ -77,6 +80,16 @@ function App() {
                 />
 
             </Route>
+
+            <Route
+                path="*"
+                element={<NotFoundPage/>}
+            />
+
+            <Route
+                path="/students/:id/edit"
+                element={<EditStudentPage />}
+            />
 
         </Routes>
 

@@ -13,7 +13,7 @@ function AppLayout() {
                 <h1>StudentApp</h1>
 
                 <nav>
-
+                    
                     <Link to="/students">
                         Students
                     </Link>

@@ -6,9 +6,9 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git
+                git credentialsId: 'github-credentials',
                 git branch: 'master',
-                    url: 'YOUR_GITHUB_REPOSITORY_URL'
+                    url: 'https://github.com/sramesh-dot/StudentApp'
             }
         }
 

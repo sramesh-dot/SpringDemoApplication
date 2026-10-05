@@ -7,8 +7,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'master',
-                    credentialsId: 'github-credentials',
-                    url: 'https://github.com/username/StudentApp.git'
+                    credentialsId: 'github-push-creds',
+                    url: 'https://github.com/username/StudentApp'
             }
         }
 

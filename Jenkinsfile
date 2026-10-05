@@ -8,7 +8,7 @@ pipeline {
             steps {
                 git branch: 'master',
                     credentialsId: 'github-push-creds',
-                    url: 'https://github.com/username/StudentApp'
+                    url: 'https://github.com/sramesh-dot/StudentApp'
             }
         }
 

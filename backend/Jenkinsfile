@@ -4,15 +4,36 @@ pipeline {
 
     stages {
 
-        stage('Build & Test') {
+        stage('Checkout') {
             steps {
-                sh 'mvn clean package'
+                git
+                git branch: 'master',
+                    url: 'YOUR_GITHUB_REPOSITORY_URL'
             }
         }
 
-        stage('Docker Build') {
+        stage('Backend Build') {
             steps {
-                sh 'docker build -t student-api:${BUILD_NUMBER} .'
+                dir('backend') {
+                    bat 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Backend Tests') {
+            steps {
+                dir('backend') {
+                    bat 'mvn test'
+                }
+            }
+        }
+
+        stage('Frontend Build') {
+            steps {
+                dir('frontend') {
+                    bat 'npm install'
+                    bat 'npm run build'
+                }
             }
         }
     }

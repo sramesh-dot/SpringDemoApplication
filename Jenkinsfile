@@ -52,5 +52,12 @@ pipeline {
                 bat 'docker compose up -d'
             }
         }
+
+        stage('Push Docker Images') {
+            steps {
+               bat 'docker push YOUR_USERNAME/studentapp-backend:latest'
+               bat 'docker push YOUR_USERNAME/studentapp-frontend:latest'
+            }
+        }
     }
 }

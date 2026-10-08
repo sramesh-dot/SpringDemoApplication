@@ -4,13 +4,11 @@ pipeline {
 
     stages {
 
-//         stage('Checkout') {
-//             steps {
-//                 git branch: 'master',
-//                     credentialsId: 'github-push-creds',
-//                     url: 'https://github.com/sramesh-dot/StudentApp'
-//             }
-//         }
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
 
         stage('Backend Build') {
             steps {
@@ -34,6 +32,18 @@ pipeline {
                     bat 'npm install'
                     bat 'npm run build'
                 }
+            }
+        }
+
+        stage('Backend Docker Build') {
+            steps {
+                bat 'docker build -t studentapp-backend:latest ./backend'
+            }
+        }
+
+        stage('Frontend Docker Build') {
+            steps {
+                bat 'docker build -t studentapp-frontend:latest ./frontend'
             }
         }
     }

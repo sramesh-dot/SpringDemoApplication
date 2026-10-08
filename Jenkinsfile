@@ -46,5 +46,11 @@ pipeline {
                 bat 'docker build -t studentapp-frontend:latest ./frontend'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                bat 'docker compose up -d'
+            }
+        }
     }
 }
